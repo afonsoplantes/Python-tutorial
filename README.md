@@ -38,6 +38,10 @@ The special syntax \*\*kwargs is added to a function when we want to add **addit
 
 The main function can be placed in modules to execute them as a script or as a function. See fibo module. 
 
-# The dir() Function
+## The dir() Function
 
 The built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings
+
+# I/O representation
+
+This [link](https://docs.python.org/3.13/tutorial/inputoutput.html) shows how represent numers ou print statement ou send it to a file. 

@@ -15,5 +15,3 @@ cheeseshop("Limburger", "It's very runny, sir.",
            client="John Cleese",
            sketch="Cheese Shop Sketch")
 
-
-ZeroDivisionError
