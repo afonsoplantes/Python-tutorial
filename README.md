@@ -2,7 +2,20 @@
 
 I'm using this repository to improve my Python skills. After using Anaconda for many years, I'm now looking to create isolated environments for each project to better manage them.
 
+# Python as calculator 
+[ref.](https://docs.python.org/3.13/tutorial/introduction.html)
 
+We can continue a calculation using _ to reference to the last calculated value.
+
+# String 
+
+We can write any string inside doble ou single quotes ("..." or '....'), but to write a quote inside a quote we need to add a backslash \. 
+
+## There are to forms to print a string
+print('C:\some\name')  # here \n means newline!
+print(r'C:\some\name')  # note the r before the quote
+
+The first will ommit some caracters a print a new line, the second form will show the raw text by just add **r** before the string. 
 
 ## Launcher Windows
 This manual provides examples illustrating the usage of the Windows Python Launcher (py.exe).
