@@ -28,3 +28,16 @@ A shebang directive (**#!**), located on the first line of a script, specifies t
 https://docs.python.org/3.13/using/windows.html#launcher 
 
 
+# Fuctions 
+
+## \*arguments, \*\*keywords
+
+The special syntax \*\*kwargs is added to a function when we want to add **additional arguments** and **keywords**. The keywords would act as a dictionary, the arguments must be positional.
+
+## __main__
+
+The main function can be placed in modules to execute them as a script or as a function. See fibo module. 
+
+# The dir() Function
+
+The built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings
