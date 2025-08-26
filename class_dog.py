@@ -11,4 +11,4 @@ d = Dog('Fido')
 e = Dog('Buddy')
 d.add_trick('roll over')
 e.add_trick('play dead')
-d.tricks
+print(d.tricks)
