@@ -45,3 +45,11 @@ The built-in function dir() is used to find out which names a module defines. It
 # I/O representation
 
 This [link](https://docs.python.org/3.13/tutorial/inputoutput.html) shows how represent numers ou print statement ou send it to a file. 
+
+# Entering a new chapter
+
+## Automate the Boring Stuff with Python
+
+Recently, I started reading this book to learn how to automate stuff on day life. I have to read some pdf files and copy paste many things. Most of my coworkers are not familiar with python programing, big data analisys, or even excel. Sometimes, I receive .pdf spreadsheets, sometimes with handwritten data. 
+
+I expect by reading this book to speed up these tasks.
