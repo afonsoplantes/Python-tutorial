@@ -2,10 +2,19 @@
 
 I'm using this repository to improve my Python skills. After using Anaconda for many years, I'm now looking to create isolated environments for each project to better manage them.
 
+## Before start scripting
+Activate virtual enviroment on powershell to execute any file. The scripts to execute this are below. After activate, we can pip and module, this will be just in this enviroment. 
+
+
+
 # Python as calculator 
 [ref.](https://docs.python.org/3.13/tutorial/introduction.html)
 
 We can continue a calculation using _ to reference to the last calculated value.
+..\ambiente_tutorial\Scripts\activate - to activate virtual env
+deactivate - stop virtual env
+
+
 
 # String 
 
