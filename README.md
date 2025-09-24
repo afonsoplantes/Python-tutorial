@@ -15,11 +15,24 @@ We can continue a calculation using _ to reference to the last calculated value.
 
 # Virtual Enviroment 
 
-## to activate virtual env
-..\ambiente_tutorial\Scripts\activate 
+## Create virtual enviroment
+
+It is more common to create a virtual enviroment on the project folder. You can name it as ".venv". It will be ignored by git when you comit it.
+
+## Activate virtual enviroment
+.\.venv\Scripts\activate 
 deactivate - stop virtual env
 
+## Create requirements
 
+Run this command to list all the packages installed on your python project. 
+
+pip freeze > requirements.txt
+
+## How to install these packages
+
+To install all packages on requirements.txt run the comand below.
+pip install -r requirements.txt
 
 # String 
 
