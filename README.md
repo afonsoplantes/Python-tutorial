@@ -11,7 +11,12 @@ Activate virtual enviroment on powershell to execute any file. The scripts to ex
 [ref.](https://docs.python.org/3.13/tutorial/introduction.html)
 
 We can continue a calculation using _ to reference to the last calculated value.
-..\ambiente_tutorial\Scripts\activate - to activate virtual env
+
+
+# Virtual Enviroment 
+
+## to activate virtual env
+..\ambiente_tutorial\Scripts\activate 
 deactivate - stop virtual env
 
 
