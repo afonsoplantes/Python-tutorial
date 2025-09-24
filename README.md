@@ -5,14 +5,6 @@ I'm using this repository to improve my Python skills. After using Anaconda for 
 ## Before start scripting
 Activate virtual enviroment on powershell to execute any file. The scripts to execute this are below. After activate, we can pip and module, this will be just in this enviroment. 
 
-
-
-# Python as calculator 
-[ref.](https://docs.python.org/3.13/tutorial/introduction.html)
-
-We can continue a calculation using _ to reference to the last calculated value.
-
-
 # Virtual Enviroment 
 
 ## Create virtual enviroment
@@ -33,6 +25,15 @@ pip freeze > requirements.txt
 
 To install all packages on requirements.txt run the comand below.
 pip install -r requirements.txt
+
+
+# Features
+
+## Python as calculator 
+[ref.](https://docs.python.org/3.13/tutorial/introduction.html)
+
+We can continue a calculation using _ to reference to the last calculated value.
+
 
 # String 
 
