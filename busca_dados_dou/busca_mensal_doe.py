@@ -1,18 +1,12 @@
 import requests
 import PyPDF2
 from io import BytesIO
-from datetime import date
 from calendar import monthrange
 
 def search_name_in_monthly_pdfs(year, month, name_to_find):
     """
-    Gera URLs para todos os dias de um mês/ano específico e busca por um nome
-    em arquivos DOE e DOE Suplementar.
-
-    Args:
-        year (int): O ano dos arquivos.
-        month (int): O mês dos arquivos (1-12).
-        name_to_find (str): O nome a ser pesquisado.
+    Gera URLs para todos os dias de um mês/ano específico, tratando a
+    sensibilidade a maiúsculas/minúsculas dos nomes de arquivo, e busca por um nome.
     """
     found_in_pdfs = []
     
@@ -21,58 +15,68 @@ def search_name_in_monthly_pdfs(year, month, name_to_find):
     print(f"Preparando para buscar PDFs para o mês {month:02}/{year}...\n")
     print(f"URL base de pesquisa: {base_url}")
 
-    # Obter o número de dias no mês
     num_days = monthrange(year, month)[1]
 
-    # Iterar por cada dia do mês
     for day in range(1, num_days + 1):
         day_str = f"{day:02}"
         month_str = f"{month:02}"
         
-        # Gerar os dois tipos de nomes de arquivo
-        filenames = [
+        # Nomes de arquivo a serem testados
+        filenames_to_try = [
+            f"DOE-{day_str}.{month_str}.{year}.pdf",
             f"DOE-{day_str}-{month_str}-{year}.pdf",
-            f"DOE-SUPLEMENTAR-{day_str}-{month_str}-{year}.pdf"
+            f"Doe-{day_str}-{month_str}-{year}.pdf",
+            f"Doe.{day_str}.{month_str}.{year}.pdf",
+            f"SUPLEMENTAR-{day_str}-{month_str}-{year}.pdf",
+            f"DOE-SUPLEMENTAR-02-{day_str}-{month_str}-{year}.pdf",
+            f"DOE-SUPLEMENTAR-{day_str}-{month_str}-{year}.pdf",
+            f"Doe-Suplementar-{day_str}-{month_str}-{year}.pdf"
         ]
 
-        # Iterar sobre os dois tipos de arquivo por dia
-        for filename in filenames:
+        found_for_day = False
+        
+        for filename in filenames_to_try:
             pdf_url = base_url + filename
-            print(f"  -> Verificando {pdf_url}...")
+            print(f"  -> Tentando {pdf_url}...")
             
             try:
-                # Baixar o conteúdo do PDF
-                pdf_response = requests.get(pdf_url, stream=True)
+                response = requests.get(pdf_url, stream=True)
                 
-                # Acessar a URL apenas se o arquivo existir (status 200)
-                if pdf_response.status_code == 200:
-                    # Ler o PDF a partir da memória
-                    pdf_file_obj = BytesIO(pdf_response.content)
+                if response.status_code == 200:
+                    found_for_day = True # Marca que uma publicação foi encontrada para o dia
+                    
+                    pdf_file_obj = BytesIO(response.content)
                     pdf_reader = PyPDF2.PdfReader(pdf_file_obj)
                     
-                    # Extrair e pesquisar o texto
-                    found = False
-                    for page_num in range(len(pdf_reader.pages)):
-                        page = pdf_reader.pages[page_num]
+                    name_found_in_pdf = False
+                    for page in pdf_reader.pages:
                         text = page.extract_text()
-                        
-                        if name_to_find.lower() in text.lower():
+                        if text and name_to_find.lower() in text.lower():
                             found_in_pdfs.append(pdf_url)
                             print(f"  [SUCESSO] Nome encontrado no PDF: {pdf_url}")
-                            found = True
-                            break # Sai do loop de páginas
-                    if not found:
+                            name_found_in_pdf = True
+                            break
+                    
+                    if not name_found_in_pdf:
                         print("  [INFO] Nome não encontrado neste PDF.")
-
-                elif pdf_response.status_code == 404:
-                    # Imprimir que o arquivo não existe, o que é comum para DOEs suplementares
-                    # que não são publicados todos os dias.
-                    print("  [INFO] Arquivo não encontrado (Erro 404). Ignorando.")
+                        
+                    break  # Sai do loop de filenames, pois uma URL válida foi encontrada
+                
+                elif response.status_code == 404:
+                    continue  # Continua para a próxima opção de nome de arquivo
+                
                 else:
-                    print(f"  [ERRO] Ocorreu um erro ao baixar o arquivo: {pdf_response.status_code}")
-            
+                    print(f"  [ERRO] Ocorreu um erro inesperado: {response.status_code}")
+                    found_for_day = True # Impede a mensagem de "não houve publicação"
+                    break
+
             except Exception as e:
                 print(f"  [ERRO] Não foi possível processar o PDF em {pdf_url}: {e}")
+                found_for_day = True
+                break
+        
+        if not found_for_day:
+            print(f"  [INFO] Não houve publicação no diário para o dia {day_str}/{month_str}/{year}.")
 
     # Relatório final
     print("\n" + "="*50)
@@ -88,7 +92,7 @@ def search_name_in_monthly_pdfs(year, month, name_to_find):
 # --- Configuração da busca ---
 year_to_search = 2025
 month_to_search = 9
-name_to_find = "afonso roberto plantes neto"
+name_to_find = "joabe zeferino dos santos"
 
 # Executar a função
 search_name_in_monthly_pdfs(year_to_search, month_to_search, name_to_find)
